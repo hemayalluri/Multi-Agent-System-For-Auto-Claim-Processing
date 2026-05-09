@@ -36,6 +36,27 @@ This system utilizes a routed swarm of three specialized agents. The LangGraph o
 2. **Risk Agent:** Operating as the autonomous underwriter, this agent evaluates the contextual risk of the claim. It analyzes historical claim frequency, geographical risk factors, and policyholder history to generate a comprehensive risk profile.
 3. **Fraud Agent:** This agent serves as the system's internal auditor. It queries the structured historical tables within Snowflake to identify anomalies, temporal mismatches, and known fraudulent signatures associated with the claim entities. 
 
+## Technology Stack
+
+**Core Programming & Orchestration**
+* **Python 3.9+**: The foundational programming language for the application and agent logic.
+* **LangGraph & LangChain**: Frameworks utilized for orchestrating the multi-agent cyclic workflows, tool integration, and managing persistent state across the system.
+* **Streamlit**: Used to build the interactive frontend user interface for claim submissions and workflow tracking.
+
+**AI & Reasoning (The Brain)**
+* **Azure OpenAI (GPT-4o)**: The primary LLM reasoning engine, configured with deterministic settings (Temperature = 0) to ensure factual, hallucination-free decision making.
+* **Llama 3**: Open-weight model utilized locally for cost-effective preprocessing tasks.
+
+**Data & Vector Storage (The Nervous System)**
+* **Snowflake Data Cloud**: The core enterprise data warehouse, strictly adhering to a Medallion architecture (RAW, STAGE, CURATED schemas).
+* **Snowflake Cortex AI**: Handles native text vectorization (embeddings) and executes semantic searches directly within the secure warehouse boundary.
+* **Snowpipe**: Manages the continuous, automated ingestion of structured claims data and unstructured policy documents (PDFs).
+
+**Security & Infrastructure (The Guardrails)**
+* **Azure Key Vault**: Centralized and secure management of API keys, database credentials, and secrets.
+* **Snowflake Horizon**: Enforces data governance, role-based access control, and strict lineage tracking.
+* **Tailscale**: Provides a secure, private tunnel to connect local development environments to the office GPU without exposing firewall ports.
+
 ## 4. Project Structure
 ```text
 multi-agent-ai-system/
